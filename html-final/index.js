@@ -32,7 +32,7 @@ function preencherTabela(registros) {
         editButton.classList.add('btn');
         editButton.classList.add('btn-outline-dark');
         editButton.classList.add('me-2');
-        editButton.addEventListener('click', () => buscarRegistroPorId(registro.id));
+        editButton.addEventListener('click', () => redirecionarEdicao(registro.id));
         acoesCell.appendChild(editButton);
         
         const deleteButton = document.createElement('button');
@@ -46,24 +46,26 @@ function preencherTabela(registros) {
 }
 
 
-function apagarRegistro(button) {
-    var row = button.parentNode.parentNode; // Obtém a linha da tabela
 
+// Função para redirecionar para edição
+function redirecionarEdicao(id) {
+    window.location.href = './editar.html?id='+id;
 }
 
 
 // Função para excluir um registro
 function excluirRegistro(id) {
 
-    const confirmacao = confirm("Tem certeza que deseja remover este registro?"); // Exibe a caixa de diálogo de confirmação
+    // Exibe a caixa de diálogo de confirmação
+    const confirmacao = confirm("Tem certeza que deseja remover este registro?"); 
 
     if (confirmacao) {
 
         const url = `http://localhost:8080/pessoas/${id}`
 
-        fetch(url, {
-            method: 'DELETE'
-        })
+            fetch(url, {
+                method: 'DELETE'
+            })
             .then(response => {
                 if (response.ok) {
                     // Registro excluído com sucesso
@@ -83,27 +85,7 @@ function excluirRegistro(id) {
     }
 }
 
-// Função para buscar um registro pelo id
-function buscarRegistroPorId(id) {
 
-    const url = `http://localhost:8080/pessoas/${id}`
-
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            // Preenche o formulário com os dados recebidos
-            document.querySelector('#id').value = data.id;
-            document.querySelector('#nome').value = data.nome;
-            document.querySelector('#email').value = data.email;
-            document.querySelector('#telefone').value = data.telefone;
-            document.querySelector('#endereco').value = data.endereco;
-            document.querySelector('#ativo').checked = data.ativo;
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-        });
-
-}
 
 
 function buscarRegistros() {
@@ -119,86 +101,6 @@ function buscarRegistros() {
         });
 }
 
-
-// Obtém uma referência ao formulário
-const form = document.querySelector('#meuFormulario');
-
-// Define o manipulador de evento para o envio do formulário
-form.addEventListener('submit', function (e) {
-    e.preventDefault(); // Impede o envio padrão do formulário
-
-    // Obtém os dados do formulário
-    const formData = new FormData(form);
-
-    const url = `http://localhost:8080/pessoas`
-
-    const data = {};
-
-    // Converte os dados do FormData para um objeto JSON
-    formData.forEach((value, key) => {
-        if (key === 'ativo') {
-            value = (value === 'on') ? 'true' : 'false'
-        }
-        data[key] = value;
-    });
-
-
-    // Faz a requisição POST para o endpoint do Spring usando o método fetch
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(function (response) {
-            // Manipula a resposta do servidor em caso de sucesso
-            if (response.ok) {
-                apagarBodyTabela();
-                buscarRegistros();
-                limparCamposFormulario();
-                alert("Dados registrados com sucesso");
-            } else {
-                alert("Erro ao enviar o formulário");
-            }
-        })
-        .catch(function (error) {
-            // Manipula erros em caso de falha na requisição
-            console.error(error);
-        });
-
-});
-
-
-function limparCamposFormulario() {
-    const elementos = form.elements;
-
-    for (let i = 0; i < elementos.length; i++) {
-        let campo = elementos[i];
-
-        // Limpa o valor do campo
-        if (campo.type !== 'hidden') {
-            if (campo.type === 'checkbox') {
-                campo.checked = false; // Desmarca o checkbox
-            } else {
-                campo.value = ''; // Limpa o valor do campo
-            }
-        } else {
-            campo.setAttribute('value', ''); // Limpa o valor do campo oculto
-        }
-    }
-}
-
-
-function apagarBodyTabela() {
-    const tabela = document.getElementById('tabelaRegistros');
-    const linhas = tabela.getElementsByTagName('tr');
-
-    // Começando de trás para frente para evitar problemas com o deslocamento dos índices
-    for (let i = linhas.length - 1; i > 0; i--) {
-        tabela.deleteRow(i);
-    }
-}
 
 
 buscarRegistros();

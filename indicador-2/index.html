@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous">
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container mt-5">
+
+        <section class="mt-5">
+            <h4> Listagem</h4>
+
+            <div style="margin-top: 0.25rem!important;">
+                <table id="tabelaRegistros" 
+                        class="table table-responsive table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Ativo</th>
+                            <th>Email</th>
+                            <th>Telefone</th>
+                            <th>Endereço</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Mark</td>
+                            <td>Sim</td>
+                            <td>mark@gmail.com</td>
+                            <td>(48) 99999-9999</td>
+                            <td>Estrada geral</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-primary btn-editar">
+                                    <i class="fas fa-edit"></i> 
+                                </button>
+
+                                <button type="button" class="btn btn-danger btn-remover">
+                                    <i class="fas fa-trash"></i> 
+                                </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>2</td>
+                            <td>Elisa</td>
+                            <td>Sim</td>
+                            <td>elisa@gmail.com</td>
+                            <td>(48) 99999-9999</td>
+                            <td>Estrada da ponte</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-primary btn-editar">
+                                    <i class="fas fa-edit"></i> 
+                                </button>
+
+                                <button type="button" class="btn btn-danger btn-remover">
+                                    <i class="fas fa-trash"></i> 
+                                </button>
+                            </td>
+                          </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="index.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>
